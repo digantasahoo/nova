@@ -95,18 +95,11 @@ def upgrade(migrate_engine):
     volume_list = list(volumes.select().execute())
     for v in volume_list:
         old_id = v['id']
-<<<<<<< HEAD
-<<<<<<< HEAD
         new_id = uuid.uuid4()
-=======
-=======
->>>>>>> aee1c43... 089_add_volume_id_mappings.py modified @digant
         local_created_at = v['created_at']
         local_updated_at = v['updated_at']
         local_deleted_at = v['deleted_at']
         local_deleted = v['deleted']
-        new_id = utils.gen_uuid()
->>>>>>> aee1c43... 089_add_volume_id_mappings.py modified @digant
         row = volume_id_mappings.insert()
         row.execute({'id': old_id, 'created_at': local_created_at,
                 'updated_at': local_updated_at, 'deleted_at': local_deleted_at,
@@ -115,19 +108,11 @@ def upgrade(migrate_engine):
     snapshot_list = list(snapshots.select().execute())
     for s in snapshot_list:
         old_id = s['id']
-<<<<<<< HEAD
-<<<<<<< HEAD
         new_id = uuid.uuid4()
-=======
-=======
->>>>>>> aee1c43... 089_add_volume_id_mappings.py modified @digant
         local_snap_created_at = s['created_at']
         local_snap_updated_at = s['updated_at']
         local_snap_deleted_at = s['deleted_at']
         local_snap_deleted = s['deleted']
-
-        new_id = utils.gen_uuid()
->>>>>>> aee1c43... 089_add_volume_id_mappings.py modified @digant
         row = snapshot_id_mappings.insert()
         row.execute({'id': old_id, 'created_at': local_snap_created_at,
                 'updated_at': local_snap_updated_at,
