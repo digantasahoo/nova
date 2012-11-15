@@ -93,18 +93,30 @@ def upgrade(migrate_engine):
     volume_list = list(volumes.select().execute())
     for v in volume_list:
         old_id = v['id']
+        local_created_at = v['created_at']
+        local_updated_at = v['updated_at']
+        local_deleted_at = v['deleted_at']
+        local_deleted = v['deleted']
         new_id = utils.gen_uuid()
         row = volume_id_mappings.insert()
-        row.execute({'id': old_id,
-              'uuid': str(new_id)})
+        row.execute({'id': old_id, 'created_at': local_created_at,
+                'updated_at': local_updated_at, 'deleted_at': local_deleted_at,
+                'deleted': loca_deleted, 'uuid': str(new_id)})
 
     snapshot_list = list(snapshots.select().execute())
     for s in snapshot_list:
         old_id = s['id']
+        local_snap_created_at = s['created_at']
+        local_snap_updated_at = s['updated_at']
+        local_snap_deleted_at = s['deleted_at']
+        local_snap_deleted = s['deleted']
+
         new_id = utils.gen_uuid()
         row = snapshot_id_mappings.insert()
-        row.execute({'id': old_id,
-              'uuid': str(new_id)})
+        row.execute({'id': old_id, 'created_at': local_snap_created_at,
+                'updated_at': local_snap_updated_at,
+                'deleted_at': local_snap_deleted_at,
+                'deleted': local_snap_deleted, 'uuid': str(new_id)})
 
 
 def downgrade(migrate_engine):
