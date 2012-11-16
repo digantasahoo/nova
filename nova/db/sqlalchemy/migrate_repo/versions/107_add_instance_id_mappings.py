@@ -55,8 +55,14 @@ def upgrade(migrate_engine):
     for instance in instance_list:
         instance_id = instance['id']
         uuid = instance['uuid']
+        local_created_at = instance['created_at']
+        local_updated_at = instance['updated_at']
+        local_deleted_at = instance['deleted_at']
+        local_deleted = instance['deleted']
         row = instance_id_mappings.insert()
-        row.execute({'id': instance_id, 'uuid': uuid})
+        row.execute({'id': instance_id, 'created_at': local_created_at,
+               'updated_at': local_updated_at, 'deleted_at': local_deleted_at,
+               'deleted': local_deleted, 'uuid': uuid})
 
 
 def downgrade(migrate_engine):
