@@ -113,6 +113,8 @@ def upgrade(migrate_engine):
         local_snap_updated_at = s['updated_at']
         local_snap_deleted_at = s['deleted_at']
         local_snap_deleted = s['deleted']
+        row = snapshot_id_mappings.insert()
+        row.execute({'id': old_id, 'created_at': local_snap_created_at,
                 'updated_at': local_snap_updated_at,
                 'deleted_at': local_snap_deleted_at,
                 'deleted': local_snap_deleted, 'uuid': str(new_id)})
